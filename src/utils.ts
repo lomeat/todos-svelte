@@ -1,11 +1,10 @@
-export function createTodo(name?: string | undefined): Todo {
+export function createTodo(name?: string): Todo {
   const id: number = Math.floor(Math.random() * Date.now());
   const defaultOptions = {
     isComplete: false,
-    isEditing: false,
   };
 
-  if (typeof name === "string") {
+  if (name) {
     return {
       id,
       text: name,
