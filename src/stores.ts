@@ -1,10 +1,10 @@
 import { writable, Writable } from "svelte/store";
 
-import { createTodo } from "./utils";
+import { createTodo, generateTodos } from "./utils";
 
 function createTodosStore() {
   const { subscribe, update, set }: Writable<Todos> = writable(
-    Array.from({ length: 6 }, (_, index: number): Todo => createTodo(index))
+    generateTodos(6)
   );
 
   return {
@@ -60,12 +60,7 @@ function createTodosStore() {
     removeAll: (): void => set([]),
 
     generateNew: (): void =>
-      update(
-        (todos: Todos): Todos => [
-          ...todos,
-          ...Array.from({ length: 10 }, (_, index) => createTodo()),
-        ]
-      ),
+      update((todos: Todos): Todos => [...todos, ...generateTodos(10)]),
   };
 }
 
